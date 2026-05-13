@@ -14,7 +14,7 @@ const LoginHero: React.FC = () => {
               <line x1="12" y1="19" x2="20" y2="19"></line>
             </svg>
           </div>
-          SQL<span className="text-blue-500 font-light">Mastery</span>
+          Mastery
         </div>
 
         <h1 className="text-4xl md:text-5xl font-black text-white leading-tight mb-6">
@@ -23,7 +23,7 @@ const LoginHero: React.FC = () => {
         </h1>
         
         <p className="text-slate-300 text-lg leading-relaxed mb-12 border-l-4 border-blue-500 pl-4 font-medium">
-          Nền tảng học SQL trực quan nhất. Code trực tiếp trên Terminal giả lập, theo dõi tiến trình học tập chuyên sâu và được hỗ trợ sửa lỗi 1-kèm-1 bởi AI (Gemini).
+          Nền tảng học lập trình trực quan nhất. Code trực tiếp trên Terminal giả lập, theo dõi tiến trình học tập chuyên sâu và được hỗ trợ sửa lỗi 1-kèm-1 bởi AI.
         </p>
 
         {/* Floating Abstract UI Elements */}

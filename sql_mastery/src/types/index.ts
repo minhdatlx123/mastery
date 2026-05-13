@@ -107,6 +107,7 @@ export interface SidebarProps {
   progressPercent: number;
   beginnerModules: CourseModule[];
   advancedModules: CourseModule[];
+  onBackToModules?: () => void;
 }
 
 export interface HeaderProps {

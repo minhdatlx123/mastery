@@ -12,7 +12,6 @@ const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
   showProfileDropdown,
   setShowProfileDropdown,
   completedModules,
-  totalQuizzesPassed,
   quizResults,
   heatmapData,
   setIsLoggedIn,

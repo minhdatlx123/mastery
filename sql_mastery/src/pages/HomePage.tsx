@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+﻿import { useState, useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
 import LessonView from '../components/LessonView';
@@ -11,13 +11,18 @@ import InterviewPrepView from '../components/InterviewPrepView';
 import { courseData } from '../data/courseData';
 import { interviewProblems } from '../data/interviewData';
 import { simulateSQL } from '../utils/simulateSQL';
-import { callGeminiAPI, generateMockHeatmap } from '../utils/geminiApi';
+import { callAIAPI, generateMockHeatmap } from '../utils/aiApi';
 import type { CourseModule, ViewMode, LogEntry, QuizQuestion, AIChatMessage, QuizResult } from '../types';
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   
-  const [activeModule, setActiveModule] = useState<CourseModule>(courseData[0]);
+  // Read module ID from URL query param (?module=1)
+  const initialModuleId = Number(searchParams.get('module')) || 1;
+  const initialModule = courseData.find(m => m.id === initialModuleId) || courseData[0];
+  
+  const [activeModule, setActiveModule] = useState<CourseModule>(initialModule);
   const [viewMode, setViewMode] = useState<ViewMode>('lesson'); 
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [completedModules, setCompletedModules] = useState<number[]>([]);
@@ -36,10 +41,10 @@ const HomePage: React.FC = () => {
   const [terminalWidth, setTerminalWidth] = useState(420);
   const [isDraggingTerminal, setIsDraggingTerminal] = useState(false);
   
-  const [logs, setLogs] = useState<LogEntry[]>([{ time: new Date().toLocaleTimeString(), type: 'info', text: 'Hệ thống giả lập SQL CLI đã sẵn sàng. Gõ lệnh và nhấn Enter để test...' }]);
+  const [logs, setLogs] = useState<LogEntry[]>([{ time: new Date().toLocaleTimeString(), type: 'info', text: 'Há»‡ thá»‘ng giáº£ láº­p SQL CLI Ä‘Ã£ sáºµn sÃ ng. GÃµ lá»‡nh vÃ  nháº¥n Enter Ä‘á»ƒ test...' }]);
   const [terminalInput, setTerminalInput] = useState('');
 
-  // Quiz State (for sidebar Luyện Tập)
+  // Quiz State (for sidebar Luyá»‡n Táº­p)
   const [currentQuizList, setCurrentQuizList] = useState<QuizQuestion[]>(courseData[0].quiz);
   const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
@@ -97,6 +102,11 @@ const HomePage: React.FC = () => {
     }
   }, [isLoggedIn, navigate]);
 
+  // Navigate back to module selection page
+  const handleBackToModules = () => {
+    navigate('/');
+  };
+
   // Terminal Handlers
   const handleTerminalKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && terminalInput.trim() !== '') {
@@ -121,18 +131,18 @@ const HomePage: React.FC = () => {
     }, 400);
   };
 
-  // AI Explain → opens chatbox
+  // AI Explain â†’ opens chatbox
   const handleAIExplain = async (query: string) => {
     setAiChatOpen(true);
     const timestamp = new Date().toLocaleTimeString();
-    setAiChatMessages(prev => [...prev, { role: 'user', content: `Giải thích SQL:\n${query}`, timestamp }]);
+    setAiChatMessages(prev => [...prev, { role: 'user', content: `Giáº£i thÃ­ch SQL:\n${query}`, timestamp }]);
     setAiChatLoading(true);
     try {
-      const prompt = `Giải thích câu lệnh SQL sau một cách chuyên nghiệp, đi sâu vào logic xử lý cho kỹ sư:\n\n${query}\n\nTrả lời trực tiếp, không chào hỏi.`;
-      const explanation = await callGeminiAPI(prompt, false);
+      const prompt = `Giáº£i thÃ­ch cÃ¢u lá»‡nh SQL sau má»™t cÃ¡ch chuyÃªn nghiá»‡p, Ä‘i sÃ¢u vÃ o logic xá»­ lÃ½ cho ká»¹ sÆ°:\n\n${query}\n\nTráº£ lá»i trá»±c tiáº¿p, khÃ´ng chÃ o há»i.`;
+      const explanation = await callAIAPI(prompt, false);
       setAiChatMessages(prev => [...prev, { role: 'ai', content: explanation as string, timestamp: new Date().toLocaleTimeString() }]);
     } catch (error) {
-      setAiChatMessages(prev => [...prev, { role: 'ai', content: '❌ Lỗi: ' + (error as Error).message, timestamp: new Date().toLocaleTimeString() }]);
+      setAiChatMessages(prev => [...prev, { role: 'ai', content: 'âŒ Lá»—i: ' + (error as Error).message, timestamp: new Date().toLocaleTimeString() }]);
     } finally {
       setAiChatLoading(false);
     }
@@ -144,11 +154,11 @@ const HomePage: React.FC = () => {
     setAiChatMessages(prev => [...prev, { role: 'user', content: message, timestamp }]);
     setAiChatLoading(true);
     try {
-      const context = `Module hiện tại: ${activeModule.title}\n\nCâu hỏi của học viên: ${message}\n\nTrả lời trực tiếp bằng tiếng Việt, ngắn gọn, chuyên sâu. Nếu câu hỏi liên quan đến SQL hãy kèm ví dụ code.`;
-      const reply = await callGeminiAPI(context, false);
+      const context = `Module hiá»‡n táº¡i: ${activeModule.title}\n\nCÃ¢u há»i cá»§a há»c viÃªn: ${message}\n\nTráº£ lá»i trá»±c tiáº¿p báº±ng tiáº¿ng Viá»‡t, ngáº¯n gá»n, chuyÃªn sÃ¢u. Náº¿u cÃ¢u há»i liÃªn quan Ä‘áº¿n SQL hÃ£y kÃ¨m vÃ­ dá»¥ code.`;
+      const reply = await callAIAPI(context, false);
       setAiChatMessages(prev => [...prev, { role: 'ai', content: reply as string, timestamp: new Date().toLocaleTimeString() }]);
     } catch (error) {
-      setAiChatMessages(prev => [...prev, { role: 'ai', content: '❌ ' + (error as Error).message, timestamp: new Date().toLocaleTimeString() }]);
+      setAiChatMessages(prev => [...prev, { role: 'ai', content: 'âŒ ' + (error as Error).message, timestamp: new Date().toLocaleTimeString() }]);
     } finally {
       setAiChatLoading(false);
     }
@@ -156,7 +166,7 @@ const HomePage: React.FC = () => {
 
   const clearLogs = () => setLogs([]);
 
-  // Quiz Handlers (sidebar Luyện Tập mode)
+  // Quiz Handlers (sidebar Luyá»‡n Táº­p mode)
   const handleAnswerSelect = (idx: number) => setSelectedAnswer(idx);
 
   const handleNextQuestion = () => {
@@ -188,20 +198,20 @@ const HomePage: React.FC = () => {
   const handleGenerateAIQuiz = async () => {
     setIsGeneratingQuiz(true);
     try {
-      const prompt = `Tạo 3 câu hỏi trắc nghiệm SQL level thực chiến đi làm về chủ đề: "${activeModule.title}". Mỗi câu có 3-4 lựa chọn và 1 đáp án đúng duy nhất.`;
-      const newQuiz = await callGeminiAPI(prompt, true);
+      const prompt = `Táº¡o 3 cÃ¢u há»i tráº¯c nghiá»‡m SQL level thá»±c chiáº¿n Ä‘i lÃ m vá» chá»§ Ä‘á»: "${activeModule.title}". Má»—i cÃ¢u cÃ³ 3-4 lá»±a chá»n vÃ  1 Ä‘Ã¡p Ã¡n Ä‘Ãºng duy nháº¥t.`;
+      const newQuiz = await callAIAPI(prompt, true);
       if (newQuiz && (newQuiz as QuizQuestion[]).length > 0) {
         setCurrentQuizList(newQuiz as QuizQuestion[]);
         resetQuiz();
       }
     } catch {
-      alert("Không thể tạo Quiz AI lúc này. Vui lòng thử lại sau.");
+      alert("KhÃ´ng thá»ƒ táº¡o Quiz AI lÃºc nÃ y. Vui lÃ²ng thá»­ láº¡i sau.");
     } finally {
       setIsGeneratingQuiz(false);
     }
   };
 
-  // Quiz Modal complete handler → records result + auto-navigates to next module
+  // Quiz Modal complete handler â†’ records result + auto-navigates to next module
   const handleQuizModalComplete = (score: number, total: number) => {
     const passed = score >= Math.ceil(total / 2);
     
@@ -273,6 +283,7 @@ const HomePage: React.FC = () => {
         progressPercent={progressPercent}
         beginnerModules={beginnerModules}
         advancedModules={advancedModules}
+        onBackToModules={handleBackToModules}
       />
 
       {/* MAIN LAYOUT */}
@@ -314,7 +325,7 @@ const HomePage: React.FC = () => {
                 />
               )}
 
-              {/* QUIZ VIEW (sidebar Luyện Tập) */}
+              {/* QUIZ VIEW (sidebar Luyá»‡n Táº­p) */}
               {viewMode === 'quiz' && (
                 <QuizView
                   currentQuizList={currentQuizList}
@@ -386,3 +397,4 @@ const HomePage: React.FC = () => {
 };
 
 export default HomePage;
+
