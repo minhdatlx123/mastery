@@ -198,6 +198,8 @@ export interface AIChatBoxProps {
   messages: AIChatMessage[];
   isLoading: boolean;
   onSendMessage: (message: string) => void;
+  isTerminalOpen?: boolean;
+  terminalWidth?: number;
 }
 
 // --- Quiz Modal ---

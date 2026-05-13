@@ -41,7 +41,13 @@ const HomePage: React.FC = () => {
   const [terminalWidth, setTerminalWidth] = useState(420);
   const [isDraggingTerminal, setIsDraggingTerminal] = useState(false);
   
-  const [logs, setLogs] = useState<LogEntry[]>([{ time: new Date().toLocaleTimeString(), type: 'info', text: 'Há»‡ thá»‘ng giáº£ láº­p SQL CLI Ä‘Ã£ sáºµn sÃ ng. GÃµ lá»‡nh vÃ  nháº¥n Enter Ä‘á»ƒ test...' }]);
+  const [logs, setLogs] = useState<LogEntry[]>([
+    {
+      time: new Date().toLocaleTimeString(),
+      type: 'info',
+      text: 'Hệ thống terminal mô phỏng đã sẵn sàng. Nhập lệnh và nhấn Enter để bắt đầu.',
+    },
+  ]);
   const [terminalInput, setTerminalInput] = useState('');
 
   // Quiz State (for sidebar Luyá»‡n Táº­p)
@@ -75,10 +81,12 @@ const HomePage: React.FC = () => {
         e.preventDefault();
         if (window.innerWidth >= 768) {
           const newWidth = window.innerWidth - e.clientX;
-          setTerminalWidth(Math.max(280, Math.min(newWidth, window.innerWidth * 0.6)));
+          const minDesktopWidth = 340;
+          const maxDesktopWidth = Math.min(560, window.innerWidth * 0.5);
+          setTerminalWidth(Math.max(minDesktopWidth, Math.min(newWidth, maxDesktopWidth)));
         } else {
           const newHeight = window.innerHeight - e.clientY;
-          setTerminalHeight(Math.max(150, Math.min(newHeight, window.innerHeight * 0.8)));
+          setTerminalHeight(Math.max(180, Math.min(newHeight, window.innerHeight * 0.8)));
         }
     };
     const handleMouseUp = () => setIsDraggingTerminal(false);
@@ -391,6 +399,8 @@ const HomePage: React.FC = () => {
         messages={aiChatMessages}
         isLoading={aiChatLoading}
         onSendMessage={handleChatSend}
+        isTerminalOpen={isTerminalOpen}
+        terminalWidth={terminalWidth}
       />
     </div>
   );

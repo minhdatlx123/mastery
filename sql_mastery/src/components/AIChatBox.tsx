@@ -2,10 +2,19 @@ import { useRef, useEffect, useState } from 'react';
 import { Sparkles, X, Bot, User, Loader2, Send } from 'lucide-react';
 import type { AIChatBoxProps } from '../types';
 
-const AIChatBox: React.FC<AIChatBoxProps> = ({ isOpen, setIsOpen, messages, isLoading, onSendMessage }) => {
+const AIChatBox: React.FC<AIChatBoxProps> = ({
+  isOpen,
+  setIsOpen,
+  messages,
+  isLoading,
+  onSendMessage,
+  isTerminalOpen = false,
+  terminalWidth = 0,
+}) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [chatInput, setChatInput] = useState('');
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -16,6 +25,12 @@ const AIChatBox: React.FC<AIChatBoxProps> = ({ isOpen, setIsOpen, messages, isLo
       inputRef.current.focus();
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    const handleResize = () => setIsDesktop(window.innerWidth >= 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleSend = () => {
     const text = chatInput.trim();
@@ -31,8 +46,10 @@ const AIChatBox: React.FC<AIChatBoxProps> = ({ isOpen, setIsOpen, messages, isLo
     }
   };
 
+  const rightOffset = isDesktop && isTerminalOpen ? terminalWidth + 20 : 20;
+
   return (
-    <div className="fixed z-50 bottom-5 right-[28px]">
+    <div className="fixed z-50 bottom-5" style={{ right: `${rightOffset}px` }}>
       {/* Chat Panel */}
       <div 
         className={`absolute bottom-full mb-2 right-0 w-[360px] max-sm:w-[300px] bg-white rounded-2xl shadow-[0_12px_40px_-10px_rgba(0,0,0,0.25)] border border-slate-200 flex flex-col overflow-hidden transition-all duration-200 origin-bottom-right ${
