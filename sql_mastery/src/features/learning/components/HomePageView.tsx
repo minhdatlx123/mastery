@@ -1,12 +1,12 @@
-﻿import Sidebar from '../Sidebar';
-import Header from '../Header';
-import LessonView from '../LessonView';
-import QuizView from '../QuizView';
-import Terminal from '../Terminal';
-import AIChatBox from '../AIChatBox';
-import QuizModal from '../QuizModal';
-import InterviewPrepView from '../InterviewPrepView';
-import type { UseHomePageLogicReturn } from '../../hooks/useHomePageLogic';
+﻿import Sidebar from './Sidebar';
+import Header from './Header';
+import LessonView from './LessonView';
+import QuizView from '../../quiz/components/QuizView';
+import Terminal from './Terminal';
+import AIChatBox from './AIChatBox';
+import QuizModal from '../../quiz/components/QuizModal';
+import InterviewPrepView from '../../interview/components/InterviewPrepView';
+import type { UseHomePageLogicReturn } from '../hooks/useHomePageLogic';
 
 export const HomePageView: React.FC<UseHomePageLogicReturn> = ({
   activeModule,
@@ -185,3 +185,4 @@ export const HomePageView: React.FC<UseHomePageLogicReturn> = ({
     </div>
   );
 };
+

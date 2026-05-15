@@ -1,8 +1,8 @@
-﻿import LoginHero from '../LoginHero';
-import LoginForm from '../LoginForm';
-import ForgotPasswordForm from '../ForgotPasswordForm';
-import SocialLogin from '../SocialLogin';
-import type { LoginViewType } from '../../types';
+﻿import LoginHero from './LoginHero';
+import LoginForm from './LoginForm';
+import ForgotPasswordForm from './ForgotPasswordForm';
+import SocialLogin from './SocialLogin';
+import type { LoginViewType } from '../types';
 
 interface LoginPageViewProps {
   currentView: LoginViewType;
@@ -46,3 +46,4 @@ export const LoginPageView: React.FC<LoginPageViewProps> = ({
     </div>
   );
 };
+

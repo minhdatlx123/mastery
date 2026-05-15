@@ -1,5 +1,5 @@
-import { Award, Sparkles, Loader2, ChevronRight } from 'lucide-react';
-import { courseData } from '../data/courseData';
+﻿import { Award, Sparkles, Loader2, ChevronRight } from 'lucide-react';
+import { courseData } from '../../learning/data/courseData';
 import type { QuizViewProps } from '../types';
 
 const QuizView: React.FC<QuizViewProps> = ({
@@ -21,16 +21,16 @@ const QuizView: React.FC<QuizViewProps> = ({
       {isGeneratingQuiz && (
          <div className="absolute inset-0 bg-white/90 z-10 flex flex-col items-center justify-center backdrop-blur-sm">
             <Loader2 size={48} className="text-blue-600 animate-spin mb-4" />
-            <p className="text-slate-800 font-bold text-lg">AI đang tạo bộ câu hỏi hóc búa cho bạn...</p>
+            <p className="text-slate-800 font-bold text-lg">AI Ä‘ang táº¡o bá»™ cÃ¢u há»i hÃ³c bÃºa cho báº¡n...</p>
          </div>
       )}
 
       {!quizCompleted ? (
         <>
           <div className="flex justify-between items-center mb-8 pb-4 border-b border-slate-100">
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight">Câu hỏi {currentQuestionIdx + 1} / {currentQuizList.length}</h2>
+            <h2 className="text-2xl font-black text-slate-900 tracking-tight">CÃ¢u há»i {currentQuestionIdx + 1} / {currentQuizList.length}</h2>
             <span className="text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest bg-blue-50 text-blue-600">
-              Trắc nghiệm Kiến thức
+              Tráº¯c nghiá»‡m Kiáº¿n thá»©c
             </span>
           </div>
           
@@ -67,7 +67,7 @@ const QuizView: React.FC<QuizViewProps> = ({
                   : 'bg-slate-100 text-slate-400 cursor-not-allowed'
               }`}
             >
-              {currentQuestionIdx === currentQuizList.length - 1 ? 'XEM KẾT QUẢ' : 'CÂU TIẾP THEO'} <ChevronRight size={18}/>
+              {currentQuestionIdx === currentQuizList.length - 1 ? 'XEM Káº¾T QUáº¢' : 'CÃ‚U TIáº¾P THEO'} <ChevronRight size={18}/>
             </button>
           </div>
         </>
@@ -76,22 +76,22 @@ const QuizView: React.FC<QuizViewProps> = ({
           <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-emerald-50 text-emerald-500 mb-6 ring-8 ring-emerald-50/50">
             <Award size={48} strokeWidth={1.5} />
           </div>
-          <h2 className="text-3xl font-black text-slate-900 mb-3 tracking-tight">Hoàn thành Module!</h2>
-          <p className="text-slate-600 mb-10 text-lg">Bạn đã trả lời đúng <span className="font-black text-emerald-600 text-2xl mx-1">{quizScore} / {currentQuizList.length}</span> câu hỏi.</p>
+          <h2 className="text-3xl font-black text-slate-900 mb-3 tracking-tight">HoÃ n thÃ nh Module!</h2>
+          <p className="text-slate-600 mb-10 text-lg">Báº¡n Ä‘Ã£ tráº£ lá»i Ä‘Ãºng <span className="font-black text-emerald-600 text-2xl mx-1">{quizScore} / {currentQuizList.length}</span> cÃ¢u há»i.</p>
           
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <button 
               onClick={resetQuiz}
               className="px-6 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-full font-bold text-sm uppercase tracking-wider transition-colors"
             >
-              Làm Lại
+              LÃ m Láº¡i
             </button>
             <button 
               onClick={handleGenerateAIQuiz}
               disabled={isGeneratingQuiz}
               className="px-6 py-3.5 bg-purple-50 border border-purple-200 hover:bg-purple-100 text-purple-700 rounded-full font-bold text-sm uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
             >
-              <Sparkles size={16} /> Nhờ AI Tạo Đề Mới
+              <Sparkles size={16} /> Nhá» AI Táº¡o Äá» Má»›i
             </button>
             <button 
               onClick={() => {
@@ -105,7 +105,7 @@ const QuizView: React.FC<QuizViewProps> = ({
                 : 'bg-slate-100 text-slate-400 cursor-not-allowed'
               }`}
             >
-              HỌC BÀI TIẾP THEO <ChevronRight size={18}/>
+              Há»ŒC BÃ€I TIáº¾P THEO <ChevronRight size={18}/>
             </button>
           </div>
         </div>
@@ -115,3 +115,4 @@ const QuizView: React.FC<QuizViewProps> = ({
 };
 
 export default QuizView;
+

@@ -13,8 +13,8 @@
   Lock,
   Sparkles,
 } from 'lucide-react';
-import { moduleStats, moduleSubjects } from '../../data/moduleSubjectData';
-import type { ModuleStatsItem, ModuleSubject } from '../../types/moduleSelect';
+import { moduleStats, moduleSubjects } from '../data/moduleSubjectData';
+import type { ModuleStatsItem, ModuleSubject } from '../types/moduleSelect';
 
 interface ModuleSelectPageViewProps {
   animateIn: boolean;
@@ -286,3 +286,4 @@ export const ModuleSelectPageView: React.FC<ModuleSelectPageViewProps> = ({
     </div>
   );
 };
+

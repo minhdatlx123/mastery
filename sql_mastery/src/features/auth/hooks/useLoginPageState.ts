@@ -1,8 +1,8 @@
 ﻿import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { LoginViewType } from '../types';
-import { APP_EVENTS } from '../constants/events';
-import { trackEvent } from '../utils/trackEvent';
+import { APP_EVENTS } from '../../../shared/tracking/events';
+import { trackEvent } from '../../../shared/utils/trackEvent';
 
 export interface UseLoginPageStateReturn {
   currentView: LoginViewType;
@@ -27,3 +27,4 @@ export const useLoginPageState = (): UseLoginPageStateReturn => {
     handleLoginSuccess,
   };
 };
+

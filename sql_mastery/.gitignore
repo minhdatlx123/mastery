@@ -28,3 +28,8 @@ node_modules/
 sql_mastery/ .codex-dev.err
 sql_mastery/ .codex-dev.log
 sql_mastery/ debug.log
+sql_mastery/ .codex-dev.err
+sql_mastery/ .codex-dev.log
+sql_mastery/ debug.log
+sql_mastery/ PROJECT_RULES.md
+knownledge/

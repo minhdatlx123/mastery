@@ -1,4 +1,4 @@
-﻿import { HomePageView } from '../components/pages/HomePageView';
+﻿import { HomePageView } from '../components/HomePageView';
 import { useHomePageLogic } from '../hooks/useHomePageLogic';
 
 const HomePage: React.FC = () => {
@@ -7,3 +7,4 @@ const HomePage: React.FC = () => {
 };
 
 export default HomePage;
+

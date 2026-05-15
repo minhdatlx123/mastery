@@ -1,4 +1,4 @@
-﻿import { LoginPageView } from '../components/pages/LoginPageView';
+﻿import { LoginPageView } from '../components/LoginPageView';
 import { useLoginPageState } from '../hooks/useLoginPageState';
 
 const LoginPage: React.FC = () => {
@@ -20,3 +20,4 @@ const LoginPage: React.FC = () => {
 };
 
 export default LoginPage;
+

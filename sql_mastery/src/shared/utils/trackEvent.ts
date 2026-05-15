@@ -1,4 +1,4 @@
-﻿import type { AppEventName } from '../constants/events';
+﻿import type { AppEventName } from '../tracking/events';
 
 export const trackEvent = (eventName: AppEventName, payload?: unknown): void => {
   if (!import.meta.env.DEV) return;
@@ -8,3 +8,4 @@ export const trackEvent = (eventName: AppEventName, payload?: unknown): void => 
   }
   console.debug('[event]', eventName, payload);
 };
+

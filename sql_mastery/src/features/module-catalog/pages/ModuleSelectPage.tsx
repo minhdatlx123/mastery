@@ -1,4 +1,4 @@
-﻿import { ModuleSelectPageView } from '../components/pages/ModuleSelectPageView';
+﻿import { ModuleSelectPageView } from '../components/ModuleSelectPageView';
 import { useModuleSelectPage } from '../hooks/useModuleSelectPage';
 
 const ModuleSelectPage: React.FC = () => {
@@ -22,3 +22,4 @@ const ModuleSelectPage: React.FC = () => {
 };
 
 export default ModuleSelectPage;
+

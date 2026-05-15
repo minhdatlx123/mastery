@@ -1,8 +1,8 @@
 ﻿import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { APP_EVENTS } from '../constants/events';
+import { APP_EVENTS } from '../../../shared/tracking/events';
 import type { ModuleSubject } from '../types/moduleSelect';
-import { trackEvent } from '../utils/trackEvent';
+import { trackEvent } from '../../../shared/utils/trackEvent';
 
 export interface UseModuleSelectPageReturn {
   animateIn: boolean;
@@ -22,7 +22,7 @@ export const useModuleSelectPage = (): UseModuleSelectPageReturn => {
     return () => clearTimeout(timer);
   }, []);
 
-  const handleLogout = () => {
+  const handleLogout = () => { 
     trackEvent(APP_EVENTS.LOGOUT_CLICK);
     navigate('/login');
   };
@@ -41,3 +41,4 @@ export const useModuleSelectPage = (): UseModuleSelectPageReturn => {
     handleSelectSubject,
   };
 };
+

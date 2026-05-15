@@ -1,8 +1,8 @@
 ﻿import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { APP_EVENTS } from '../constants/events';
+import { APP_EVENTS } from '../../../shared/tracking/events';
 import { courseData } from '../data/courseData';
-import { interviewProblems } from '../data/interviewData';
+import { interviewProblems } from '../../interview/data/interviewData';
 import type {
   AIChatMessage,
   CourseModule,
@@ -10,10 +10,10 @@ import type {
   QuizQuestion,
   QuizResult,
   ViewMode,
-} from '../types';
-import { callAIAPI, generateMockHeatmap } from '../utils/aiApi';
-import { simulateSQL } from '../utils/simulateSQL';
-import { trackEvent } from '../utils/trackEvent';
+} from '../../../shared/types';
+import { callAIAPI, generateMockHeatmap } from '../../../shared/services/aiApi';
+import { simulateSQL } from '../../../shared/utils/simulateSQL';
+import { trackEvent } from '../../../shared/utils/trackEvent';
 
 export interface UseHomePageLogicReturn {
   activeModule: CourseModule;
@@ -427,3 +427,4 @@ export const useHomePageLogic = (): UseHomePageLogicReturn => {
     setViewMode,
   };
 };
+

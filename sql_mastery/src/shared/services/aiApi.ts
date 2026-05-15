@@ -104,3 +104,4 @@ export const generateMockHeatmap = (): number[] => {
   }
   return days;
 };
+
