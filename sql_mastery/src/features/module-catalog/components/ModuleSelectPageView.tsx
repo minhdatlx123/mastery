@@ -49,7 +49,7 @@ export const ModuleSelectPageView: React.FC<ModuleSelectPageViewProps> = ({
       className="min-h-screen overflow-x-hidden overflow-y-auto"
       style={{
         background: 'linear-gradient(135deg, #09090f 0%, #0d1117 50%, #0a0d1a 100%)',
-        fontFamily: "'Noto Sans', sans-serif",
+        fontFamily: "'Roboto', sans-serif",
       }}
     >
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
